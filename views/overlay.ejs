@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>SourceRuns Twitch Overlay (<%= height %>p)</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" media="screen" href="content/css/overlay.css" />
+	</head>
+	<body x<%= height %> style="width:<%= width %>px;height:<%= height %>px">
+		<div class="main">
+			<div class="col a">
+				<div class="row a bordered">a</div>
+				<div class="row b bordered">b</div>
+			</div>
+			<div class="col b">
+				<div class="row a" id="game-placeholder"></div>
+				<div class="row b bordered">d</div>
+			</div>
+		</div>
+
+		<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+		<script src="content/js/overlay.js"></script>
+	</body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "name": "sourceruns-overlay",
+  "version": "0.0.1",
+  "description": "The stream overlay used on the Sourceruns twitch channel.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Rock48/Sourceruns-Overlay.git"
+  },
+  "author": "Charlie \"Rock\" Q",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/Rock48/Sourceruns-Overlay/issues"
+  },
+  "homepage": "https://github.com/Rock48/Sourceruns-Overlay#readme",
+  "dependencies": {
+    "dotenv": "^6.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "fluent-ffmpeg": "^2.1.2",
+    "hls-server": "^1.5.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5"
+  }
+}

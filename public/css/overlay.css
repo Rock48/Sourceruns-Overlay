@@ -1,0 +1,74 @@
+body {
+	margin: 0;
+	font-family: Roboto;
+	box-sizing: border-box;
+	margin: 0;
+	background: transparent;
+}
+
+body * {
+	box-sizing: inherit;
+}
+
+.main {
+	background: rgb(40, 40, 42);
+}
+
+/**
+	Gameplay window for 720p will be 1040x585 and for 1080p it will be 1280x720
+*/
+
+
+.bordered {
+	border: 3px ridge rgb(255, 185, 103);
+	border-bottom: none;
+	border-left: none;
+}
+
+.col.a .bordered.a {
+	border-top: none;
+}
+.col.b .bordered.b {
+	border-right: none;
+}
+
+.row, .col, .main {
+	display: flex;
+	flex-direction: row;
+	flex-grow: 1;
+}
+
+.col, .main {
+	height: 100%;
+}
+.row, .main {
+	width: 100%;
+}
+
+.col.b {
+	width: 1040px;
+	flex-grow: 0;
+}
+
+.col {
+	flex-direction: column;
+}
+
+#game-placeholder {
+	height: 585px;
+	flex-grow: 0;
+}
+
+#game-placeholder video {
+	width: 100%;
+	height: 100%;
+}
+
+[x1080] #game-placeholder {
+	width: 1280px;
+	height: 720px
+}
+
+#game-placeholder + * {
+	flex-grow: 1;
+}
