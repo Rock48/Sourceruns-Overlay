@@ -63,6 +63,7 @@ function readdirAsync(dir_path) {
 }
 
 const PLAYLIST_FILE = path.join(VIDEO_DIR, "live.m3u8");
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 async function newRtmpStream(ip, key) {
 	const uri = `rtmp://${ip}/${key}`;
@@ -74,7 +75,7 @@ async function newRtmpStream(ip, key) {
 	if(fs.existsSync(PLAYLIST_FILE)) await unlinkAsync(PLAYLIST_FILE);
 
 	let files = await readdirAsync(VIDEO_DIR);
-	files = files.filter(name => name.endsWith(".ts"));
+	files = files.filter(name => name.match(/\.ts(.tmp)?$/i));
 	
 	const promises = new Array(files.length);
 	for(let i = 0; i < files.length; i++) {
@@ -83,25 +84,29 @@ async function newRtmpStream(ip, key) {
 
 	await Promise.all(promises);
 
-	current_stream = ffmpeg(uri, {}).addOption([
+	current_stream = ffmpeg(uri).addOption([
 		'-c:v copy',
 		'-f hls',
-		'-hls_delete_threshold 8',
-		'-hls_list_size 4',
-		'-hls_time 1',
+		'-hls_delete_threshold 2',
+		'-hls_list_size 5',
+		'-hls_time 2',
 		'-hls_start_number_source epoch',
-		'-hls_flags delete_segments+temp_file',
+		'-hls_flags delete_segments+temp_file+split_by_time',
 		'-hls_allow_cache 0'
 	]).output(PLAYLIST_FILE);
 
-	current_stream.run();
-
-	current_stream.on("error", (...args) => {
+	current_stream.on("error", async (...args) => {
 		console.error(...args);
-
+		console.log("Waiting 5 seconds")
+		await sleep(5000);
 		newRtmpStream(ip, key);
 	});
+	
+	current_stream.on("end", async (...args) => {
+		console.log("Stream Ended.");
+	})
+
+	current_stream.run();
 }
 
-// newRtmpStream("159.65.231.115", "live/stupid");
-newRtmpStream("184.72.239.149", "vod/mp4:bigbuckbunny_750.mp4")
+newRtmpStream("142.93.96.108", "live/streamkey");
